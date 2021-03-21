@@ -1,1 +1,8 @@
-css
+.title{
+    color : red;
+    font-size: 64px;
+    }
+
+.error{
+    color:red;
+}
