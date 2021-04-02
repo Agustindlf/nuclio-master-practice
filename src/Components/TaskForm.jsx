@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
+import { generateId } from '../Utils/string'
 
-function TaskForm({onSubmit}) {
-    const [text, setText] =useState("")
-    const [error, setError] =useState("")
+function TaskForm({ onSubmit }) {
+    const [title, setTitle] = useLocalStorage("taskTitle", "")
+    const [error, setError] = useState("")
 
 
     function handleInput(event) {
         const newText = event.target.value
-        setText(newText)
-        if (error && newText){
+        setTitle(newText)
+        if (error && newText) {
             setError("")
 
         }
@@ -16,11 +18,11 @@ function TaskForm({onSubmit}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        if(!text){
+        if(!title){
             setError("Your task title can not be empty")
         } else {
-            onSubmit(text)
-            setText("")
+            onSubmit({ id: generateId(), title })
+            setTitle("")
             setError("")
         }
 
@@ -29,7 +31,7 @@ function TaskForm({onSubmit}) {
 
     return(
         <form onSubmit={handleSubmit}>
-            <input type="text" value={text} onChange={handleInput}/>
+            <input placeholder="Task title" type="text" value={title} onChange={handleInput}/>
             <button type='Submit'>Add</button>
             {error &&<p style={{color: 'red'}}>{error}</p>}
         </form>

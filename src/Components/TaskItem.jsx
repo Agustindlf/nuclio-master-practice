@@ -1,11 +1,8 @@
 import React from 'react'
 
-function TaskItem({title, onClick}) {
-    function handleClick(){
-        onClick(title)
-    }
+function TaskItem({id, title, onClick}) {
     return (
-        <li onClick={handleClick}>{title}</li>
+        <li onClick={() => onClick(id)}>{title}</li>
     )
 }
 
